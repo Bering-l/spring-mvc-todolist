@@ -9,7 +9,6 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -19,7 +18,7 @@ import static com.todo.constants.DBConstants.*;
 
 @Configuration
 @EnableTransactionManagement
-public class DBConfig implements WebMvcConfigurer {
+public class DBConfig {
     @Bean
     public DataSource dataSource() {
         HikariDataSource dataSource = new HikariDataSource();
@@ -43,9 +42,8 @@ public class DBConfig implements WebMvcConfigurer {
     @Bean
     public Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty(Environment.DIALECT, DB_DIALECT);
-        hibernateProperties.setProperty(Environment.DRIVER, DB_DRIVER);
-        hibernateProperties.setProperty(Environment.HBM2DDL_AUTO, "validate");
+        hibernateProperties.put(Environment.DRIVER, DB_DRIVER);
+        hibernateProperties.put(Environment.HBM2DDL_AUTO, "validate");
         return hibernateProperties;
     }
 

@@ -6,7 +6,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.type.descriptor.jdbc.TinyIntJdbcType;
+
 
 import java.io.Serializable;
 
@@ -19,7 +19,7 @@ public class Task extends BaseEntity implements Serializable {
     @Column
     String description;
     @Enumerated(EnumType.ORDINAL)
-    @Convert(converter = TinyIntJdbcType.class)
+    @Column(columnDefinition = "int")
     Status status;
 }
 

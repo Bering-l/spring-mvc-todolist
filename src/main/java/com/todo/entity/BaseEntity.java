@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.type.descriptor.jdbc.TinyIntJdbcType;
 
 @Data
 @MappedSuperclass
@@ -12,6 +11,5 @@ import org.hibernate.type.descriptor.jdbc.TinyIntJdbcType;
 public abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Convert(converter = TinyIntJdbcType.class)
     int id;
 }
