@@ -1,25 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Todo-list</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/script/jquery.js" defer></script>
+    <script src="/script/method.js" defer></script>
+    <meta charset="UTF-8">
+    <title>Todo-list</title>
 </head>
 <body>
 <table>
-  <thead>
-  <tr>
-    <th>Id</th>
-    <th>Description</th>
-    <th>Status</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="task, number : ${tasks}">
-    <td th:text="${task.id}"></td>
-    <td th:text="${task.description}" th:id="'description_' + ${task.id}"></td>
-    <td span th:text="${task.status}" th:id="'status_' + ${task.id}"></td>
-  </tr>
-  </tbody>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Description</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task, number : ${tasks}">
+        <td th:text="${task.id}"></td>
+        <td th:text="${task.description}" th:id="'description_' + ${task.id}"></td>
+        <td span th:text="${task.status}" th:id="'status_' + ${task.id}"></td>
+        <td>
+            <button th:id="'edit_' + ${task.id}" th:onclick="'edit_task(' + ${task.id} + ')'">Edit</button>
+            <button th:id="'delete_' + ${task.id}" th:onclick="'delete_task(' + ${task.id} + ')'">Delete</button>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text_bold">Add new task:</td>
+    </tr>
+    <tr>
+        <td>-</td>
+        <td>
+            <input id='description_new' type='text' value=''>
+        </td>
+        <td>
+            <label for='status_new'></label>
+            <section id='status_new'>
+                <option value='IN_PROGRESS'>IN_PROGRESS</option>
+                <option value='DONE'>DONE</option>
+                <option value='PAUSED'></option>
+            </section>
+        </td>
+        <td>
+            <button id='save_new' onclick='add_tasks()'>Save</button>
+        </td>
+    </tr>
+    </tbody>
 </table>
+<h2>
+    <button th:each="pages : ${page_number}" class="button_page">
+        <a th:href="@{/(page=${pages}, limit=10)}" th:text="${pages}"
+           th:classappend="${pages == current_page? 'active_page' : ''}"></a>
+    </button>
+</h2>
 </body>
 </html>
