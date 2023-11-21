@@ -22,8 +22,10 @@
         <td th:text="${task.description}" th:id="'description_' + ${task.id}"></td>
         <td span th:text="${task.status}" th:id="'status_' + ${task.id}"></td>
         <td>
-            <button th:id="'edit_' + ${task.id}" th:onclick="'edit_task(' + ${task.id} + ')'">Edit</button>
-            <button th:id="'delete_' + ${task.id}" th:onclick="'delete_task(' + ${task.id} + ')'">Delete</button>
+            <button class="btn btn-info btn-sm mx-1 col-5" th:id="'edit_' + ${task.id}"
+                    th:onclick="'edit_task(' + ${task.id} + ')'"><i class="fas fa-pencil-alt"></i>Edit</button>
+            <button class="btn btn-danger btn-sm mx-1 col-5" th:id="'delete_' + ${task.id}"
+                    th:onclick="'delete_task(' + ${task.id} + ')'"><i class="fas fa-trash-alt"></i>Delete</button>
         </td>
     </tr>
     <tr>
@@ -36,22 +38,22 @@
         </td>
         <td>
             <label for='status_new'></label>
-            <section id='status_new'>
+            <select id='status_new'>
                 <option value='IN_PROGRESS'>IN_PROGRESS</option>
                 <option value='DONE'>DONE</option>
-                <option value='PAUSED'></option>
-            </section>
+                <option value='PAUSED'>PAUSED</option>
+            </select>
         </td>
         <td>
-            <button id='save_new' onclick='add_tasks()'>Save</button>
+            <button id='save_new' onclick='add_task()'>Save</button>
         </td>
     </tr>
     </tbody>
 </table>
 <h2>
-    <button th:each="pages : ${page_number}" class="button_page">
-        <a th:href="@{/(page=${pages}, limit=10)}" th:text="${pages}"
-           th:classappend="${pages == current_page? 'active_page' : ''}"></a>
+    <button class="button_page" th:each="pages : ${page_number}">
+        <a th:classappend="${pages == current_page? 'active_page' : ''}" th:href="@{/(page=${pages}, limit=10)}"
+           th:text="${pages}"></a>
     </button>
 </h2>
 </body>

@@ -37,7 +37,7 @@ public class TaskServiceImpl implements TaskService {
         return task;
     }
     @Override
-    public Task create(int id, String description, Status status) {
+    public Task create(String description, Status status) {
         Task task = new Task();
         task.setDescription(description);
         task.setStatus(status);
