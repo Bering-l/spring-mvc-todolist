@@ -40,7 +40,7 @@ public class TasksController {
     public String update(Model model,
                          @PathVariable Integer id,
                          @RequestBody TaskInfo info) {
-        if (isNull(id) || id > 0) {
+        if (isNull(id) || id <= 0) {
             throw new RuntimeException("Invalid id");
         }
         Task task = taskService.update(id, info.getDescription(), info.getStatus());
@@ -48,17 +48,15 @@ public class TasksController {
     }
 
     @PostMapping("/")
-    public String save(Model model,
-                       @PathVariable Integer id,
+    public void save(Model model,
                        @RequestBody TaskInfo info) {
-        Task task = taskService.create(id, info.getDescription(), info.getStatus());
-        return tasks(model, 1, 10);
+        taskService.create(info.getDescription(), info.getStatus());
     }
 
     @DeleteMapping("/{id}")
     public String delete(Model model,
                          @PathVariable Integer id) {
-        if (isNull(id) || id > 0) {
+        if (isNull(id) || id <= 0) {
             throw new RuntimeException("Invalid id");
         }
         taskService.delete(id);
